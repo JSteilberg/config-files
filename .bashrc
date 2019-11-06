@@ -111,28 +111,117 @@ if ! shopt -oq posix; then
   fi
 fi
 
+for i in $HOME/.bash.d/*; do source $i; done
+unset i
+
+
 # some more ls aliases
 alias ll='tree -L 3'
 alias la='ls -A'
-alias l='ls -halF'
+alias l='ls --group-directories-first -halF'
+alias lsd='ls --color=auto -ald */'
+
+alias h='history|grep'
+
+alias hr='printf $(printf "\e[$(shuf -i 91-97 -n 1);1m%%%ds\e[0m\n" $(tput cols)) | tr " " ='
 
 alias qqq='exit'
 alias qq='exit'
-for i in $HOME/.bash.d/*; do source $i; done
-unset i
+
+# Python debugging alias
 alias pydb='python -m pdb -c continue '
+
+# Git status alias
 alias gs="git status"
 alias psh="pipenv shell"
 
 export PATH=/usr/local/IDEA/bin:$PATH
-export EDITOR='emacs -nw'
+export EDITOR='/usr/bin/emacs -nw'
 
 alias python3="/usr/bin/python3.7"
-alias edit="emacs -nw"
+alias edit="/usr/bin/emacs -nw"
 
+# Make emacs non-blocking
 macs () {
     fi=${1}
     emacs $fi &
 }
-
 alias emacs=macs
+
+# Thanks reddit
+alias xclip='xclip -selection clipboard'
+alias weather='curl "https://wttr.in/Boston"'
+alias shut='sudo shutdown now'
+alias diffy="diff --side-by-side --suppress-common-lines"
+
+alias trash="gio trash"
+
+alias killit='kill -9 %%'
+
+alias gitlog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative --branches'
+
+alias ..="cd .." 
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+# typos
+alias xs=cd
+alias exot=exit
+alias Grep=grep
+
+
+
+
+
+function mydf()         # Pretty-print of 'df' output.
+{                       # Inspired by 'dfc' utility.
+for fs ; do
+
+    if [ ! -d $fs ]
+    then
+      echo -e $fs" :No such file or directory" ; continue
+    fi
+
+    local info=( $(command df -P $fs | awk 'END{ print $2,$3,$5 }') )
+    local free=( $(command df -Pkh $fs | awk 'END{ print $4 }') )
+    local nbstars=$(( 20 * ${info[1]} / ${info[0]} ))
+    local out="["
+    for ((j=0;j<20;j++)); do
+        if [ ${j} -lt ${nbstars} ]; then
+           out=$out"*"
+        else
+           out=$out"-"
+        fi
+    done
+    out=${info[2]}" "$out"] ("$free" free on "$fs")"
+    echo -e $out
+done
+}
+
+extract() {
+if [ -z ${1} ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    echo "Usage: extract <archive> [directory]"
+    echo "Example: extract presentation.zip."
+    echo "Valid archive types are:"
+    echo "tar.bz2, tar.gz, tar.xz, tar, bz2, gz, tbz2,"
+    echo "tbz, tgz, lzo, rar, zip, 7z, xz, txz, lzma and tlz"
+else
+    case "$1" in
+        *.tar.bz2|*.tbz2|*.tbz)         tar xvjf "$1" ;;
+        *.tgz)                          tar zxvf "$1" ;;
+        *.tar.gz)                       tar xvzf "$1" ;;
+        *.tar.xz)                       tar xvJf "$1" ;;
+        *.tar)                          tar xvf "$1" ;;
+        *.rar)                          7z x "$1" ;;
+        *.zip)                          unzip "$1" ;;
+        *.7z)                           7z x "$1" ;;
+        *.lzo)                          lzop -d  "$1" ;;
+        *.gz)                           gunzip "$1" ;;
+        *.bz2)                          bunzip2 "$1" ;;
+        *.Z)                            uncompress "$1" ;;
+        *.xz|*.txz|*.lzma|*.tlz)        xz -d "$1" ;;
+        *) echo "Sorry, '$1' could not be decompressed." ;;
+    esac
+fi
+}
