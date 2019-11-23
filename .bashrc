@@ -122,8 +122,9 @@ alias la='ls -A'
 alias l='ls --group-directories-first -halF'
 alias lsd='ls --color=auto -ald */'
 
-alias h='history|grep'
+alias sag="sudo apt-get"
 
+alias h='history|grep'
 alias hr='printf $(printf "\e[$(shuf -i 91-97 -n 1);1m%%%ds\e[0m\n" $(tput cols)) | tr " " ='
 
 alias qqq='exit'
@@ -137,15 +138,15 @@ alias gs="git status"
 alias psh="pipenv shell"
 
 export PATH=/usr/local/IDEA/bin:$PATH
-export EDITOR='/usr/bin/emacs -nw'
+export EDITOR='/usr/bin/emacs26 -nw'
 
 alias python3="/usr/bin/python3.7"
-alias edit="/usr/bin/emacs -nw"
+alias edit="/usr/bin/emacs26 -nw"
 
 # Make emacs non-blocking
 macs () {
     fi=${1}
-    emacs $fi &
+    /usr/bin/emacs26 $fi &
 }
 alias emacs=macs
 
@@ -171,8 +172,9 @@ alias xs=cd
 alias exot=exit
 alias Grep=grep
 
+alias make="make -j8"
 
-
+alias update="sudo apt-get update && sudo apt-get upgrade"
 
 
 function mydf()         # Pretty-print of 'df' output.
