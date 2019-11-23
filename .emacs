@@ -27,7 +27,8 @@
  '(mouse-wheel-progressive-speed nil)
  '(package-selected-packages
    (quote
-    (clang-format sr-speedbar dired-git-info gited yafolding elpy windmove yasnippet workgroups2 sublimity matlab-mode)))
+    (control-mode control-lock caps-lock clang-format sr-speedbar dired-git-info gited yafolding elpy windmove yasnippet workgroups2 sublimity matlab-mode)))
+ '(speedbar-default-position (quote left))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -94,7 +95,7 @@
 
 
 ;### Package stuff ###
-(package-initialize)
+
 
 (setq jpk-packages
       '(
@@ -104,9 +105,9 @@
         ))
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-
+(package-initialize)
 ; Install any packages in jpk-packages, if they are not installed already
 (let ((refreshed nil))
   (when (not package-archive-contents)
@@ -129,9 +130,11 @@
                            yafolding
                            clang-format
                            ))
+;(package-refresh-contents)
 (mapc #'package-install installed-packages)
 
 (elpy-enable)
+(require 'sr-speedbar)
 
 ;(with-eval-after-load 'python
 ;  (defun python-shell-completion-native-try ()
@@ -153,6 +156,7 @@
 
 (global-set-key (kbd "<C-tab>") 'next-buffer)
 (global-set-key (kbd "<C-S-tab>") 'previous-buffer)
+(global-set-key (kbd "<C-iso-lefttab>") 'previous-buffer)
 
 (defun scroll-down-in-place (n)
   (interactive "p")
