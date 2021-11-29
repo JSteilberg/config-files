@@ -114,12 +114,16 @@ fi
 for i in $HOME/.bash.d/*; do source $i; done
 unset i
 
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\W\[\033[00m\]\$ '
+
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\W\[\033[00m\]\n\$ '
+PS1='\[\e[0;32m\]\[\e[0;33m\]\t \[\e[0;32m\]\u \[\e[0;33m\]\w\[\e[0;32m\]: \[\e[0;00m\] \n\$ \[\e[0m\]'
+export PS1="[\[\e[0;36m\]\t\[\e[m\]] \u@\[\e[01;32m\]\h\[\e[01;00m\]:\[\e[01;34m\]\w\[\e[m\]\n\\$ "
 
 # some more ls aliases
 alias ll='tree -L 3'
 alias la='ls -A'
-alias l='ls --group-directories-first -halF'
+alias l='ls --group-directories-first -hlF'
+alias lll='ls --group-directories-first -halF'
 alias lsd='ls --color=auto -ald */'
 
 alias sag="sudo apt-get"
@@ -137,10 +141,10 @@ alias pydb='python -m pdb -c continue '
 alias gs="git status"
 alias psh="pipenv shell"
 
-export PATH=/usr/local/IDEA/bin:$PATH
+export PATH=/usr/local/IDEA/bin:/snap/bin:$PATH
 export EDITOR='/usr/bin/emacs26 -nw'
 
-alias python3="/usr/bin/python3.7"
+alias python3="/usr/bin/python3.8"
 alias edit="/usr/bin/emacs26 -nw"
 
 # Make emacs non-blocking
@@ -153,7 +157,7 @@ alias emacs=macs
 # Thanks reddit
 alias xclip='xclip -selection clipboard'
 alias weather='curl "https://wttr.in/Boston"'
-alias shut='sudo shutdown now'
+alias shut='shutdown now'
 alias diffy="diff --side-by-side --suppress-common-lines"
 
 alias trash="gio trash"
@@ -162,7 +166,7 @@ alias killit='kill -9 %%'
 
 alias gitlog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative --branches'
 
-alias ..="cd .." 
+alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
@@ -171,6 +175,25 @@ alias .....="cd ../../../.."
 alias xs=cd
 alias exot=exit
 alias Grep=grep
+alias python4=python3
+alias python5=python3
+alias pythom3=python3
+alias pythom4=python3
+
+# run if drunkk
+function drunk()
+{
+alias phtyhon4="python3"
+alias pytho4n="python3"
+alias python34="python3"
+alias pyth4on="python3"
+alias python43="python3"
+alias ptyuh3ohn3="python3"
+alias phython3="python3"
+alias phython4="python3"
+alias [tyhon4="python3"
+alias [tyhon3="pytnon3"
+}
 
 alias make="make -j8"
 
@@ -228,3 +251,37 @@ else
     esac
 fi
 }
+
+alias powersave="sudo pm-powersave true"
+alias poweruse="sudo pm-powersave false"
+
+alias discover="ssh -X steilberg.j@login.discovery.neu.edu"
+
+alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -"
+alias bashrc="emacs ~/.bashrc"
+alias ncloud="ssh -X ncloud.pii.at"
+
+alias beep="paplay /usr/share/sounds/LinuxMint/stereo/system-ready.ogg"
+alias raspberry="ssh jack@192.168.1.214"
+alias cprev="echo !! | xclip"
+
+alias cap="xdg-open ~/Nextcloud/captain\'s\ log.ods"
+alias know="xdg-open ~/Nextcloud/knowledge.ods"
+alias camera="v4l2-ctl"
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+#__conda_setup="$('/home/jack/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/home/jack/anaconda3/etc/profile.d/conda.sh" ]; then
+#        . "/home/jack/anaconda3/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/home/jack/anaconda3/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
+# <<< conda initialize <<<
+# export PATH="/home/jack/anaconda3/bin:$PATH"  # commented out by conda initialize
